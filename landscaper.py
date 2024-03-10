@@ -20,11 +20,13 @@ tool_list = [
 def get_input():
     player_input = input("do you want to cut grass, upgrade a tool, or quit the game?")
     if(player_input == "cut"):
-        print("player wants to cut")
+        cut_grass()
+        print( f"you have ${player_status['money']} and cutting with a {player_status['tool']}")
     elif(player_input == "upgrade"):
-        print("player wants to upgrade")
+        upgrade_tool()
+        print( f"you upgraded to {player_status['tool']}")
     elif(player_input == "quit"):
-        print("player wants to quit")
+        quit()
     else:
         print("player needs to type cut, upgrade or quit to proceed!")
 
@@ -42,7 +44,6 @@ def cut_grass():
     player_status['money'] += service_charge
     return player_status
 
-print(cut_grass())
 
 ## a player can upgrade their cutting method. the player_status should update their tool only in this case
 
@@ -50,7 +51,7 @@ def upgrade_tool():
     player_status['tool'] += 1
     return player_status
 
-print(upgrade_tool())
+
 
 ## a player should be able to quit the game. print "the game ended"
 
@@ -60,10 +61,16 @@ def quit():
 ## a player can win the game if money is over 1000 and tool is at index 4 (student_team)
 
 def win():
-    if(player_status['tool'] == 4 and player_status['money'] >= 1000):
-        print("you won the game, hot shot")
-    else:
+    print("you won becasue you have more than 1000 dollars and cutting with a student team")
+        
+
+## start the game. run the input function, then runt the win function to double check if it should keep going
+def start_game():
+    while(player_status['tool'] <= 4 and player_status['money'] <= 1000):
         get_input()
+    win()
+
+start_game()
 
 
 
