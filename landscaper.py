@@ -29,6 +29,7 @@ def get_input():
         quit()
     else:
         print("player needs to type cut, upgrade or quit to proceed!")
+    get_input()
 
 
 
@@ -61,20 +62,15 @@ def upgrade_tool():
 def quit():
     print("better luck next time, mate")
 
-## a player can win the game if money is over 1000 and tool is at index 4 (student_team)
-
-def win():
-    while(player_status['tool'] <= 4 and player_status['money'] <= 1000):
-        get_input()
-    else:
-        print("you won becasue you have more than 1000 dollars and cutting with a student team")
-        
-
+# a player can win the game if money is over 1000 and tool is at index 4 (student_team)
+      
 ## start the game by getting input. run the input function, then runt the win function to double check if it should keep going
 
+def win():
+    if(player_status['tool'] == 4 and player_status['money'] > 1000):
+        print("you won becasue you have more than 1000 dollars and cutting with a student team")
 
 get_input()
-
 
 
 
