@@ -21,10 +21,10 @@ def get_input():
     player_input = input("do you want to cut grass, upgrade a tool, or quit the game?")
     if(player_input == "cut"):
         cut_grass()
-        print( f"you have ${player_status['money']} and cutting with a {player_status['tool']}")
+        
     elif(player_input == "upgrade"):
         upgrade_tool()
-        print( f"you upgraded to {player_status['tool']}")
+        
     elif(player_input == "quit"):
         quit()
     else:
@@ -36,20 +36,23 @@ def get_input():
 
 def cut_grass():
     current_tool_ind = player_status['tool']
-    #print(current_tool_ind)
     tool_now = tool_list[current_tool_ind]
-    #print(tool_now)
     service_charge = tool_now['chargeable']
-    #print(service_charge)
     player_status['money'] += service_charge
-    return player_status
+    print( f"you have ${player_status['money']} and cutting with a {tool_now['name']}")
+    win()
 
 
 ## a player can upgrade their cutting method. the player_status should update their tool only in this case
 
 def upgrade_tool():
     player_status['tool'] += 1
-    return player_status
+    current_tool_ind = player_status['tool']
+    tool_now = tool_list[current_tool_ind]
+    # remove money for the charge of the scissors
+    player_status['money'] -= tool_now['price']
+    print( f"you upgraded to {tool_now['name']}")
+    win()
 
 
 
@@ -61,16 +64,16 @@ def quit():
 ## a player can win the game if money is over 1000 and tool is at index 4 (student_team)
 
 def win():
-    print("you won becasue you have more than 1000 dollars and cutting with a student team")
-        
-
-## start the game. run the input function, then runt the win function to double check if it should keep going
-def start_game():
     while(player_status['tool'] <= 4 and player_status['money'] <= 1000):
         get_input()
-    win()
+    else:
+        print("you won becasue you have more than 1000 dollars and cutting with a student team")
+        
 
-start_game()
+## start the game by getting input. run the input function, then runt the win function to double check if it should keep going
+
+
+get_input()
 
 
 
